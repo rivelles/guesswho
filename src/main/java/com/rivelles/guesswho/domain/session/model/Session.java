@@ -2,7 +2,6 @@ package com.rivelles.guesswho.domain.session.model;
 
 import com.rivelles.guesswho.domain.question.model.QuestionId;
 
-import java.time.Clock;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -10,7 +9,7 @@ public class Session {
     private final UserIdentifier userIdentifier;
     private final QuestionId questionId;
     private final Instant startDateTime;
-    private Instant endDateTime;
+    private Instant dateQuestionAnswered;
 
     public Session(UserIdentifier userIdentifier, QuestionId questionId) {
         this.userIdentifier = userIdentifier;
@@ -19,7 +18,7 @@ public class Session {
     }
 
     public void markAsAnswered() {
-        endDateTime = Instant.now();
+        dateQuestionAnswered = Instant.now();
     }
 
     public UserIdentifier getUserIdentifier() {
@@ -33,8 +32,8 @@ public class Session {
     public Instant getStartDateTime() {
         return startDateTime;
     }
-    public Instant getEndDateTime() {
-        return endDateTime;
+    public Instant getDateQuestionAnswered() {
+        return dateQuestionAnswered;
     }
 
     @Override
@@ -42,11 +41,11 @@ public class Session {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Session session = (Session) o;
-        return Objects.equals(userIdentifier, session.userIdentifier) && Objects.equals(questionId, session.questionId) && Objects.equals(startDateTime, session.startDateTime) && Objects.equals(endDateTime, session.endDateTime);
+        return Objects.equals(userIdentifier, session.userIdentifier) && Objects.equals(questionId, session.questionId) && Objects.equals(startDateTime, session.startDateTime) && Objects.equals(dateQuestionAnswered, session.dateQuestionAnswered);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userIdentifier, questionId, startDateTime, endDateTime);
+        return Objects.hash(userIdentifier, questionId, startDateTime, dateQuestionAnswered);
     }
 }
