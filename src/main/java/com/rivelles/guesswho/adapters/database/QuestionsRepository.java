@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface QuestionsRepository {
     void save(Question question);
-    Question findById(QuestionId questionId);
+    Optional<Question> findById(QuestionId questionId);
     Optional<QuestionId> findQuestionIdByDateOfAppearance(LocalDate dateOfAppearance);
     Optional<QuestionId> findQuestionIdWithMinimumDateOfAppearance();
     void setDateOfAppearanceToNow(QuestionId id);
