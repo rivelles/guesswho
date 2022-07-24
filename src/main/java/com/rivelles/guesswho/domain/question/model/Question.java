@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.rivelles.guesswho.domain.question.model;
 
 import java.util.LinkedHashMap;
@@ -13,20 +14,8 @@ public class Question {
     private final Answer answer;
 
     public Question(Map<String, Integer> tipsByOrderOfAppearance, String answer) {
-        this.questionId =  new QuestionId();
-        var tips = tipsByOrderOfAppearance.entrySet().stream()
-                .map(stringIntegerEntry -> new Tip(stringIntegerEntry.getKey(), stringIntegerEntry.getValue()))
-                .sorted()
-                .collect(Collector.of(
-                        () -> new LinkedHashMap<Tip, Boolean>(),
-                        (tipBooleanLinkedHashMap, tip) -> tipBooleanLinkedHashMap.put(tip, false),
-                        (tipBooleanLinkedHashMap, tip) -> {
-                            tipBooleanLinkedHashMap.putAll(tip);
-                            return tipBooleanLinkedHashMap;
-                        },
-                        tipBooleanLinkedHashMap -> tipBooleanLinkedHashMap)
-                );
-        this.questionTips = new QuestionTips(tips);
+        this.questionId = new QuestionId();
+        this.questionTips = fromMapToQuestionTips(tipsByOrderOfAppearance);
         this.answer = new Answer(answer);
     }
 
@@ -48,12 +37,36 @@ public class Question {
         return questionTips.showAllAvailableTips();
     }
 
+    private QuestionTips fromMapToQuestionTips(Map<String, Integer> tipsByOrderOfAppearance) {
+        var tips =
+                tipsByOrderOfAppearance.entrySet().stream()
+                        .map(
+                                stringIntegerEntry ->
+                                        new Tip(
+                                                stringIntegerEntry.getKey(),
+                                                stringIntegerEntry.getValue()))
+                        .sorted()
+                        .collect(
+                                Collector.of(
+                                        () -> new LinkedHashMap<Tip, Boolean>(),
+                                        (tipBooleanLinkedHashMap, tip) ->
+                                                tipBooleanLinkedHashMap.put(tip, false),
+                                        (tipBooleanLinkedHashMap, tip) -> {
+                                            tipBooleanLinkedHashMap.putAll(tip);
+                                            return tipBooleanLinkedHashMap;
+                                        },
+                                        tipBooleanLinkedHashMap -> tipBooleanLinkedHashMap));
+        return new QuestionTips(tips);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Question question = (Question) o;
-        return Objects.equals(questionId, question.questionId) && Objects.equals(questionTips, question.questionTips) && Objects.equals(answer, question.answer);
+        return Objects.equals(questionId, question.questionId)
+                && Objects.equals(questionTips, question.questionTips)
+                && Objects.equals(answer, question.answer);
     }
 
     @Override

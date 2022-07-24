@@ -2,7 +2,10 @@ plugins {
 	id 'org.springframework.boot' version '2.6.9'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id "com.diffplug.spotless" version "6.8.0"
 }
+
+apply plugin: 'com.diffplug.spotless'
 
 group = 'com.rivelles'
 version = '0.0.1-SNAPSHOT'
@@ -13,11 +16,35 @@ repositories {
 }
 
 dependencies {
+	compileOnly 'com.diffplug.spotless:spotless-plugin-gradle:6.8.0'
+
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mockito:mockito-inline:4.6.1'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+spotless {
+	ratchetFrom 'origin/main'
+
+	format 'misc', {
+		target '*.gradle', '*.md', '.gitignore'
+
+		trimTrailingWhitespace()
+		indentWithTabs()
+		endWithNewline()
+	}
+	java {
+		target 'src/*/java/**/*.java'
+
+		importOrder()
+		removeUnusedImports()
+
+		googleJavaFormat('1.15.0').aosp().reflowLongStrings()
+		licenseHeader '/* (C)$YEAR */'
+	}
 }
