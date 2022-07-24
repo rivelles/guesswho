@@ -5,8 +5,12 @@ import java.util.UUID;
 
 public class QuestionId {
     public final UUID questionId;
-     public QuestionId() {
+    public QuestionId() {
         this.questionId = UUID.randomUUID();
+    }
+
+    public QuestionId(UUID questionId) {
+        this.questionId = questionId;
     }
 
     @Override
