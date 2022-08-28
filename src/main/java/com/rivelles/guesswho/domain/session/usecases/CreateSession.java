@@ -19,9 +19,9 @@ public record CreateSession(
     public void create(UserIdentifier userIdentifier) {
         validateIfUserHasAnsweredSessionToday(userIdentifier);
 
-        Optional<QuestionId> questionId = getQuestionIdOfTheDay();
+        var maybeQuestionId = getQuestionIdOfTheDay();
 
-        var session = new Session(userIdentifier, questionId.orElseThrow(RuntimeException::new));
+        var session = new Session(userIdentifier, maybeQuestionId.orElseThrow(RuntimeException::new));
 
         sessionsRepository.save(session);
     }
