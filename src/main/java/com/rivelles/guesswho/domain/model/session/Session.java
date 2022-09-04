@@ -1,7 +1,9 @@
+/* (C)2022 */
 package com.rivelles.guesswho.domain.model.session;
 
-import com.rivelles.guesswho.domain.model.question.QuestionId;
+import static java.util.Objects.nonNull;
 
+import com.rivelles.guesswho.domain.model.question.QuestionId;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -21,6 +23,10 @@ public class Session {
         dateQuestionAnswered = Instant.now();
     }
 
+    public boolean isAnswered() {
+        return nonNull(dateQuestionAnswered);
+    }
+
     public UserIdentifier getUserIdentifier() {
         return userIdentifier;
     }
@@ -32,6 +38,7 @@ public class Session {
     public Instant getStartDateTime() {
         return startDateTime;
     }
+
     public Instant getDateQuestionAnswered() {
         return dateQuestionAnswered;
     }
@@ -41,7 +48,10 @@ public class Session {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Session session = (Session) o;
-        return Objects.equals(userIdentifier, session.userIdentifier) && Objects.equals(questionId, session.questionId) && Objects.equals(startDateTime, session.startDateTime) && Objects.equals(dateQuestionAnswered, session.dateQuestionAnswered);
+        return Objects.equals(userIdentifier, session.userIdentifier)
+                && Objects.equals(questionId, session.questionId)
+                && Objects.equals(startDateTime, session.startDateTime)
+                && Objects.equals(dateQuestionAnswered, session.dateQuestionAnswered);
     }
 
     @Override
