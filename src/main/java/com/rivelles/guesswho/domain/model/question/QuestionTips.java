@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.rivelles.guesswho.domain.model.question;
 
 import java.util.LinkedHashMap;
@@ -6,13 +7,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-record QuestionTips(
-        LinkedHashMap<Tip, Boolean> tips
-) {
+record QuestionTips(LinkedHashMap<Tip, Boolean> tips) {
     QuestionTips setNextAvailableTipToVisible() {
         var tipsReturned = new LinkedHashMap<Tip, Boolean>(tips);
-        tipsReturned.entrySet()
-                .stream()
+        tipsReturned.entrySet().stream()
                 .filter(tip -> !tip.getValue())
                 .findFirst()
                 .orElseThrow(RuntimeException::new)
@@ -22,8 +20,7 @@ record QuestionTips(
     }
 
     List<String> showAllAvailableTips() {
-        return tips.entrySet()
-                .stream()
+        return tips.entrySet().stream()
                 .filter(Map.Entry::getValue)
                 .map(tip -> tip.getKey().title())
                 .collect(Collectors.toList());

@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.rivelles.guesswho.domain.model.session;
 
 public record UserIdentifier(String ipAddress) {
