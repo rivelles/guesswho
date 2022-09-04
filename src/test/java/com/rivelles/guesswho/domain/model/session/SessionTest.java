@@ -1,9 +1,8 @@
-package com.rivelles.guesswho.domain.session.model;
+package com.rivelles.guesswho.domain.model.session;
 
-import com.rivelles.guesswho.domain.question.model.Question;
-import com.rivelles.guesswho.domain.question.model.QuestionId;
-import com.rivelles.guesswho.domain.session.model.Session;
-import com.rivelles.guesswho.domain.session.model.UserIdentifier;
+import com.rivelles.guesswho.domain.model.question.QuestionId;
+import com.rivelles.guesswho.domain.model.session.Session;
+import com.rivelles.guesswho.domain.model.session.UserIdentifier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,7 +10,6 @@ import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;

@@ -2,8 +2,8 @@ package com.rivelles.guesswho.adapters.http;
 
 import com.rivelles.guesswho.adapters.database.QuestionsRepository;
 import com.rivelles.guesswho.adapters.http.requests.CreateQuestionRequest;
-import com.rivelles.guesswho.domain.question.model.QuestionId;
-import com.rivelles.guesswho.domain.question.usecases.CreateQuestion;
+import com.rivelles.guesswho.domain.model.question.QuestionId;
+import com.rivelles.guesswho.application.services.question.CreateQuestion;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

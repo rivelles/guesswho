@@ -1,6 +1,6 @@
-package com.rivelles.guesswho.domain.question.model;
+package com.rivelles.guesswho.domain.model.question;
 
-import com.rivelles.guesswho.domain.question.model.Question;
+import com.rivelles.guesswho.domain.model.question.Question;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

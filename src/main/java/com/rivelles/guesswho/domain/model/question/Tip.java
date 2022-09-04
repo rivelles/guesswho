@@ -1,4 +1,4 @@
-package com.rivelles.guesswho.domain.question.model;
+package com.rivelles.guesswho.domain.model.question;
 
 public record Tip(String title, int orderOfAppearance) implements Comparable<Tip> {
 

@@ -1,4 +1,4 @@
-package com.rivelles.guesswho.domain.session.model;
+package com.rivelles.guesswho.domain.model.session;
 
 public record UserIdentifier(String ipAddress) {
     public UserIdentifier {

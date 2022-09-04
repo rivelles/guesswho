@@ -1,4 +1,4 @@
-package com.rivelles.guesswho.domain.question.model;
+package com.rivelles.guesswho.domain.model.question;
 
 record Answer(String title) {
     boolean provide(Answer providedAnswer) {

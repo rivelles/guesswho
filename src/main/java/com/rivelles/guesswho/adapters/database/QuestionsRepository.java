@@ -1,7 +1,7 @@
 package com.rivelles.guesswho.adapters.database;
 
-import com.rivelles.guesswho.domain.question.model.Question;
-import com.rivelles.guesswho.domain.question.model.QuestionId;
+import com.rivelles.guesswho.domain.model.question.Question;
+import com.rivelles.guesswho.domain.model.question.QuestionId;
 
 import java.time.LocalDate;
 import java.util.Optional;

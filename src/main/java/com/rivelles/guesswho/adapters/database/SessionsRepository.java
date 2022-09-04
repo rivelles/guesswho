@@ -1,7 +1,7 @@
 package com.rivelles.guesswho.adapters.database;
 
-import com.rivelles.guesswho.domain.session.model.Session;
-import com.rivelles.guesswho.domain.session.model.UserIdentifier;
+import com.rivelles.guesswho.domain.model.session.Session;
+import com.rivelles.guesswho.domain.model.session.UserIdentifier;
 
 import java.util.Optional;
 

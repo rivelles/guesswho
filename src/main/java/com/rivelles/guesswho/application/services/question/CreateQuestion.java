@@ -1,7 +1,7 @@
-package com.rivelles.guesswho.domain.question.usecases;
+package com.rivelles.guesswho.application.services.question;
 
 import com.rivelles.guesswho.adapters.database.QuestionsRepository;
-import com.rivelles.guesswho.domain.question.model.Question;
+import com.rivelles.guesswho.domain.model.question.Question;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

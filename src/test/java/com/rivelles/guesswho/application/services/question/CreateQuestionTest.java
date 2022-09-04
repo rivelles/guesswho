@@ -1,13 +1,13 @@
-package com.rivelles.guesswho.domain.question.usecases;
+package com.rivelles.guesswho.application.services.question;
+
 
 import com.rivelles.guesswho.adapters.database.QuestionsRepository;
-import com.rivelles.guesswho.domain.question.model.Question;
-import com.rivelles.guesswho.domain.question.usecases.CreateQuestion;
+import com.rivelles.guesswho.domain.model.question.Question;
+import com.rivelles.guesswho.application.services.question.CreateQuestion;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;

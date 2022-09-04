@@ -1,11 +1,12 @@
-package com.rivelles.guesswho.domain.session.usecases;
+package com.rivelles.guesswho.application.services.session;
 
 import com.rivelles.guesswho.adapters.database.QuestionsRepository;
 import com.rivelles.guesswho.adapters.database.SessionsRepository;
-import com.rivelles.guesswho.domain.question.model.Question;
-import com.rivelles.guesswho.domain.question.model.QuestionId;
-import com.rivelles.guesswho.domain.session.model.Session;
-import com.rivelles.guesswho.domain.session.model.UserIdentifier;
+import com.rivelles.guesswho.application.services.session.AnswerSessionQuestion;
+import com.rivelles.guesswho.domain.model.question.Question;
+import com.rivelles.guesswho.domain.model.question.QuestionId;
+import com.rivelles.guesswho.domain.model.session.Session;
+import com.rivelles.guesswho.domain.model.session.UserIdentifier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

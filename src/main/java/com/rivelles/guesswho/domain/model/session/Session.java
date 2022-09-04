@@ -1,6 +1,6 @@
-package com.rivelles.guesswho.domain.session.model;
+package com.rivelles.guesswho.domain.model.session;
 
-import com.rivelles.guesswho.domain.question.model.QuestionId;
+import com.rivelles.guesswho.domain.model.question.QuestionId;
 
 import java.time.Instant;
 import java.util.Objects;

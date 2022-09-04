@@ -1,9 +1,9 @@
-package com.rivelles.guesswho.domain.session.usecases;
+package com.rivelles.guesswho.application.services.session;
 
 import com.rivelles.guesswho.adapters.database.QuestionsRepository;
 import com.rivelles.guesswho.adapters.database.SessionsRepository;
-import com.rivelles.guesswho.domain.session.model.Session;
-import com.rivelles.guesswho.domain.session.model.UserIdentifier;
+import com.rivelles.guesswho.domain.model.session.Session;
+import com.rivelles.guesswho.domain.model.session.UserIdentifier;
 
 public record AnswerSessionQuestion(SessionsRepository sessionsRepository, QuestionsRepository questionsRepository) {
 

@@ -1,5 +1,5 @@
 /* (C)2022 */
-package com.rivelles.guesswho.domain.question.model;
+package com.rivelles.guesswho.domain.model.question;
 
 import java.util.LinkedHashMap;
 import java.util.List;
