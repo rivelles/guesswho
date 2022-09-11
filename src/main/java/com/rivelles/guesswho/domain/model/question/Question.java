@@ -1,10 +1,7 @@
 /* (C)2022 */
 package com.rivelles.guesswho.domain.model.question;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collector;
 
 public class Question {
@@ -29,7 +26,7 @@ public class Question {
     }
 
     public Question flopNextTip() {
-        questionTips = questionTips.setNextAvailableTipToVisible();
+        questionTips = questionTips.showNextTip();
         return this;
     }
 
@@ -44,15 +41,16 @@ public class Question {
                                 stringIntegerEntry ->
                                         new Tip(
                                                 stringIntegerEntry.getKey(),
-                                                stringIntegerEntry.getValue()))
+                                                stringIntegerEntry.getValue(),
+                                                false))
                         .sorted()
                         .collect(
                                 Collector.of(
-                                        () -> new LinkedHashMap<Tip, Boolean>(),
+                                        () -> new LinkedHashSet<Tip>(),
                                         (tipBooleanLinkedHashMap, tip) ->
-                                                tipBooleanLinkedHashMap.put(tip, false),
+                                                tipBooleanLinkedHashMap.add(tip),
                                         (tipBooleanLinkedHashMap, tip) -> {
-                                            tipBooleanLinkedHashMap.putAll(tip);
+                                            tipBooleanLinkedHashMap.addAll(tip);
                                             return tipBooleanLinkedHashMap;
                                         },
                                         tipBooleanLinkedHashMap -> tipBooleanLinkedHashMap));

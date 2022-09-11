@@ -8,9 +8,7 @@ import com.rivelles.guesswho.domain.model.question.QuestionId;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("v1/questions")
@@ -33,8 +31,8 @@ public class QuestionsController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("/{questionId}")
-    public ResponseEntity getQuestion(UUID questionId) {
+    @GetMapping("/{questionId}")
+    public ResponseEntity getQuestion(@PathVariable UUID questionId) {
         var questionOptional = questionsRepository.findById(new QuestionId(questionId));
 
         return questionOptional.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());

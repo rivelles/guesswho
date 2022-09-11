@@ -1,29 +1,29 @@
 /* (C)2022 */
 package com.rivelles.guesswho.domain.model.question;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
-record QuestionTips(LinkedHashMap<Tip, Boolean> tips) {
-    QuestionTips setNextAvailableTipToVisible() {
-        var tipsReturned = new LinkedHashMap<Tip, Boolean>(tips);
-        tipsReturned.entrySet().stream()
-                .filter(tip -> !tip.getValue())
-                .findFirst()
-                .orElseThrow(RuntimeException::new)
-                .setValue(true);
+record QuestionTips(LinkedHashSet<Tip> tips) {
+    QuestionTips showNextTip() {
+        var tipsReturned = new LinkedHashSet<Tip>(tips);
+        setNextInvisibleTipToVisible(tipsReturned);
 
         return new QuestionTips(tipsReturned);
     }
 
+    private static void setNextInvisibleTipToVisible(LinkedHashSet<Tip> tipsReturned) {
+        var tip =
+                tipsReturned.stream()
+                        .filter(it -> !it.isVisible())
+                        .findFirst()
+                        .orElseThrow(RuntimeException::new);
+        tipsReturned.remove(tip);
+        tipsReturned.add(new Tip(tip.title(), tip.orderOfAppearance(), true));
+    }
+
     List<String> showAllAvailableTips() {
-        return tips.entrySet().stream()
-                .filter(Map.Entry::getValue)
-                .map(tip -> tip.getKey().title())
-                .collect(Collectors.toList());
+        return tips.stream().filter(Tip::isVisible).map(Tip::title).collect(Collectors.toList());
     }
 
     @Override
