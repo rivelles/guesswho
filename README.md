@@ -1,5 +1,6 @@
 # Guess Who
-Back-end application to provide an API to the Guess Who game.
+Back-end application to provide an API to the Guess Who game. This was created in order to put some DDD concepts in
+practice.
 
 ## Endpoints
 - GET /guesswho
