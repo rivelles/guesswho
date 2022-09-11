@@ -2,18 +2,23 @@
 package com.rivelles.guesswho.domain.model.question;
 
 import java.util.*;
-import java.util.stream.Collector;
 
-public class Question {
+public class Question implements Cloneable {
 
     private final QuestionId questionId;
     private QuestionTips questionTips;
     private final Answer answer;
 
-    public Question(Map<String, Integer> tipsByOrderOfAppearance, String answer) {
+    public Question(QuestionTips questionTips, Answer answer) {
         this.questionId = new QuestionId();
-        this.questionTips = fromMapToQuestionTips(tipsByOrderOfAppearance);
-        this.answer = new Answer(answer);
+        this.questionTips = questionTips;
+        this.answer = answer;
+    }
+
+    private Question(QuestionId questionId, QuestionTips questionTips, Answer answer) {
+        this.questionId = questionId;
+        this.questionTips = questionTips;
+        this.answer = answer;
     }
 
     public QuestionId getId() {
@@ -26,35 +31,12 @@ public class Question {
     }
 
     public Question flopNextTip() {
-        questionTips = questionTips.showNextTip();
-        return this;
+        var tips = questionTips.showNextTip();
+        return new Question(questionId, tips, answer);
     }
 
     public List<String> showTips() {
         return questionTips.showAllAvailableTips();
-    }
-
-    private QuestionTips fromMapToQuestionTips(Map<String, Integer> tipsByOrderOfAppearance) {
-        var tips =
-                tipsByOrderOfAppearance.entrySet().stream()
-                        .map(
-                                stringIntegerEntry ->
-                                        new Tip(
-                                                stringIntegerEntry.getKey(),
-                                                stringIntegerEntry.getValue(),
-                                                false))
-                        .sorted()
-                        .collect(
-                                Collector.of(
-                                        () -> new LinkedHashSet<Tip>(),
-                                        (tipBooleanLinkedHashMap, tip) ->
-                                                tipBooleanLinkedHashMap.add(tip),
-                                        (tipBooleanLinkedHashMap, tip) -> {
-                                            tipBooleanLinkedHashMap.addAll(tip);
-                                            return tipBooleanLinkedHashMap;
-                                        },
-                                        tipBooleanLinkedHashMap -> tipBooleanLinkedHashMap));
-        return new QuestionTips(tips);
     }
 
     @Override

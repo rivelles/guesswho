@@ -7,8 +7,10 @@ import static org.mockito.Mockito.*;
 
 import com.rivelles.guesswho.adapters.database.QuestionsRepository;
 import com.rivelles.guesswho.adapters.database.SessionsRepository;
+import com.rivelles.guesswho.domain.model.question.Answer;
 import com.rivelles.guesswho.domain.model.question.Question;
 import com.rivelles.guesswho.domain.model.question.QuestionId;
+import com.rivelles.guesswho.domain.model.question.QuestionTips;
 import com.rivelles.guesswho.domain.model.session.Session;
 import com.rivelles.guesswho.domain.model.session.UserIdentifier;
 import com.rivelles.guesswho.domain.services.SessionService;
@@ -39,14 +41,15 @@ class AnswerSessionQuestionTest {
                 new AnswerSessionQuestion(sessionService, sessionsRepository, questionsRepository);
     }
 
-    private static final Map<String, Integer> MICHAEL_JACKSON_TIPS =
-            Map.of(
-                    "Was an american singer", 1,
-                    "Died in 2009", 2,
-                    "Is known as the King of Pop music", 3,
-                    "Had a band with 4 siblings", 4,
-                    "Invented the famous Moonwalk dance move", 5);
-    private static final String MICHAEL_JACKSON_ANSWER = "Michael Jackson";
+    private static final QuestionTips MICHAEL_JACKSON_TIPS =
+            new QuestionTips(
+                    Map.of(
+                            "Was an american singer", 1,
+                            "Died in 2009", 2,
+                            "Is known as the King of Pop music", 3,
+                            "Had a band with 4 siblings", 4,
+                            "Invented the famous Moonwalk dance move", 5));
+    private static final Answer MICHAEL_JACKSON_ANSWER = new Answer("Michael Jackson");
 
     @Test
     @DisplayName("When answer is correct, should mark session as answered")

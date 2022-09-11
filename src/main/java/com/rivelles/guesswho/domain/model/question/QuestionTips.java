@@ -4,15 +4,37 @@ package com.rivelles.guesswho.domain.model.question;
 import java.util.*;
 import java.util.stream.Collectors;
 
-record QuestionTips(LinkedHashSet<Tip> tips) {
-    QuestionTips showNextTip() {
-        var tipsReturned = new LinkedHashSet<Tip>(tips);
-        setNextInvisibleTipToVisible(tipsReturned);
+public class QuestionTips {
+    private TreeSet<Tip> tips;
 
-        return new QuestionTips(tipsReturned);
+    public QuestionTips(Map<String, Integer> tipsNamesByOrderOfAppearance) {
+        fromMapToQuestionTips(tipsNamesByOrderOfAppearance);
     }
 
-    private static void setNextInvisibleTipToVisible(LinkedHashSet<Tip> tipsReturned) {
+    private QuestionTips(TreeSet<Tip> tips) {
+        this.tips = tips;
+    }
+
+    private void fromMapToQuestionTips(Map<String, Integer> tipsNamesByOrderOfAppearance) {
+        this.tips =
+                tipsNamesByOrderOfAppearance.entrySet().stream()
+                        .map(
+                                tipNameAndOrder ->
+                                        new Tip(
+                                                tipNameAndOrder.getKey(),
+                                                tipNameAndOrder.getValue(),
+                                                false))
+                        .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    QuestionTips showNextTip() {
+        var tipsWithNextVisible = new TreeSet<>(tips);
+        setNextInvisibleTipToVisible(tipsWithNextVisible);
+
+        return new QuestionTips(tipsWithNextVisible);
+    }
+
+    private static void setNextInvisibleTipToVisible(TreeSet<Tip> tipsReturned) {
         var tip =
                 tipsReturned.stream()
                         .filter(it -> !it.isVisible())
@@ -23,7 +45,7 @@ record QuestionTips(LinkedHashSet<Tip> tips) {
     }
 
     List<String> showAllAvailableTips() {
-        return tips.stream().filter(Tip::isVisible).map(Tip::title).collect(Collectors.toList());
+        return tips.stream().filter(Tip::isVisible).map(Tip::title).toList();
     }
 
     @Override

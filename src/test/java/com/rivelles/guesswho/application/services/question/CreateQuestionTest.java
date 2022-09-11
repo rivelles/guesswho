@@ -41,15 +41,5 @@ class CreateQuestionTest {
         assertThat(question.getValue().getId()).isNotNull();
         assertThat(question.getValue().answer("Michael Jackson")).isTrue();
         assertThat(question.getValue().answer("Wrong answer")).isFalse();
-
-        tipsByOrderOfAppearance.forEach((__, ___) -> question.getValue().flopNextTip());
-        assertThat(question.getValue().showTips())
-                .isEqualTo(
-                        List.of(
-                                "Was an american singer",
-                                "Died in 2009",
-                                "Is known as the King of Pop music",
-                                "Had a band with 4 siblings",
-                                "Invented the famous Moonwalk dance move"));
     }
 }

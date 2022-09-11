@@ -2,7 +2,9 @@
 package com.rivelles.guesswho.application.services.question;
 
 import com.rivelles.guesswho.adapters.database.QuestionsRepository;
+import com.rivelles.guesswho.domain.model.question.Answer;
 import com.rivelles.guesswho.domain.model.question.Question;
+import com.rivelles.guesswho.domain.model.question.QuestionTips;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,9 @@ public class CreateQuestion {
     }
 
     public void create(Map<String, Integer> tipsByOrderOfAppearance, String answer) {
-        var question = new Question(tipsByOrderOfAppearance, answer);
+        var questionTips = new QuestionTips(tipsByOrderOfAppearance);
+        var questionAnswer = new Answer(answer);
+        var question = new Question(questionTips, questionAnswer);
 
         questionsRepository.save(question);
     }
