@@ -13,7 +13,6 @@ import com.rivelles.guesswho.domain.model.question.QuestionId;
 import com.rivelles.guesswho.domain.model.question.QuestionTips;
 import com.rivelles.guesswho.domain.model.session.Session;
 import com.rivelles.guesswho.domain.model.session.UserIdentifier;
-import com.rivelles.guesswho.domain.services.SessionService;
 import java.util.Map;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,20 +24,18 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Given an answer provided to a question's session")
-class AnswerSessionQuestionTest {
+class AnswerQuestionInSessionTest {
 
     @Mock SessionsRepository sessionsRepository;
 
     @Mock QuestionsRepository questionsRepository;
 
-    SessionService sessionService = new SessionService();
-
-    AnswerSessionQuestion answerSessionQuestion;
+    AnswerQuestionInSession answerQuestionInSession;
 
     @BeforeEach
     void setup() {
-        answerSessionQuestion =
-                new AnswerSessionQuestion(sessionService, sessionsRepository, questionsRepository);
+        answerQuestionInSession =
+                new AnswerQuestionInSession(sessionsRepository, questionsRepository);
     }
 
     private static final QuestionTips MICHAEL_JACKSON_TIPS =
@@ -63,7 +60,7 @@ class AnswerSessionQuestionTest {
                 .thenReturn(Optional.of(session));
         when(questionsRepository.findById(questionId)).thenReturn(Optional.of(question));
 
-        var returnedSession = answerSessionQuestion.answer(userIdentifier, "Michael Jackson");
+        var returnedSession = answerQuestionInSession.answer(userIdentifier, "Michael Jackson");
 
         verify(sessionsRepository).save(any(Session.class));
 
@@ -82,7 +79,7 @@ class AnswerSessionQuestionTest {
                 .thenReturn(Optional.of(session));
         when(questionsRepository.findById(questionId)).thenReturn(Optional.of(question));
 
-        var returnedSession = answerSessionQuestion.answer(userIdentifier, "Michael Scott");
+        var returnedSession = answerQuestionInSession.answer(userIdentifier, "Michael Scott");
 
         verify(sessionsRepository, never()).save(any());
 
@@ -98,7 +95,8 @@ class AnswerSessionQuestionTest {
                 .thenReturn(Optional.empty());
 
         assertThatExceptionOfType(RuntimeException.class)
-                .isThrownBy(() -> answerSessionQuestion.answer(userIdentifier, "Michael Jackson"));
+                .isThrownBy(
+                        () -> answerQuestionInSession.answer(userIdentifier, "Michael Jackson"));
 
         verify(sessionsRepository, never()).save(any());
     }

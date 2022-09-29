@@ -39,10 +39,6 @@ public class Session {
         return startDateTime;
     }
 
-    public Instant getDateQuestionAnswered() {
-        return dateQuestionAnswered;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

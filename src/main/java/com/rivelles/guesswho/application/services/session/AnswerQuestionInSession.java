@@ -6,25 +6,34 @@ import com.rivelles.guesswho.adapters.database.SessionsRepository;
 import com.rivelles.guesswho.domain.model.session.Session;
 import com.rivelles.guesswho.domain.model.session.UserIdentifier;
 import com.rivelles.guesswho.domain.services.SessionService;
+import org.springframework.stereotype.Service;
 
-public record AnswerSessionQuestion(
-        SessionService sessionService,
-        SessionsRepository sessionsRepository,
-        QuestionsRepository questionsRepository) {
+@Service
+public class AnswerQuestionInSession {
+    private final SessionService sessionService;
+    private final SessionsRepository sessionsRepository;
+    private final QuestionsRepository questionsRepository;
+
+    public AnswerQuestionInSession(
+            SessionsRepository sessionsRepository, QuestionsRepository questionsRepository) {
+        this.sessionService = new SessionService();
+        this.sessionsRepository = sessionsRepository;
+        this.questionsRepository = questionsRepository;
+    }
 
     public Session answer(UserIdentifier userIdentifier, String providedAnswer) {
-        var sessionOptional =
+        var maybeSession =
                 sessionsRepository.findSessionByUserIdentifierAndDateIsToday(userIdentifier);
         var questionId =
-                sessionOptional.map(Session::getQuestionId).orElseThrow(RuntimeException::new);
-        var questionOptional = questionsRepository.findById(questionId);
+                maybeSession.map(Session::getQuestionId).orElseThrow(RuntimeException::new);
+        var maybeQuestion = questionsRepository.findById(questionId);
 
         var session =
-                questionOptional
+                maybeQuestion
                         .map(
                                 question ->
                                         sessionService.markAsAnswered(
-                                                sessionOptional.get(), question, providedAnswer))
+                                                maybeSession.get(), question, providedAnswer))
                         .orElseThrow(RuntimeException::new);
 
         if (session.isAnswered()) sessionsRepository.save(session);

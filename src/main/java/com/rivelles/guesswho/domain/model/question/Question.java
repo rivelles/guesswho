@@ -6,7 +6,7 @@ import java.util.*;
 public class Question implements Cloneable {
 
     private final QuestionId questionId;
-    private QuestionTips questionTips;
+    private final QuestionTips questionTips;
     private final Answer answer;
 
     public Question(QuestionTips questionTips, Answer answer) {

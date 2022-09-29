@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CreateQuestion {
 
-    QuestionsRepository questionsRepository;
+    private final QuestionsRepository questionsRepository;
 
     public CreateQuestion(QuestionsRepository questionsRepository) {
         this.questionsRepository = questionsRepository;
