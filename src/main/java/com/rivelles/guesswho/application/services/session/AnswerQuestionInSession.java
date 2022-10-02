@@ -23,7 +23,7 @@ public class AnswerQuestionInSession {
 
     public Session answer(UserIdentifier userIdentifier, String providedAnswer) {
         var maybeSession =
-                sessionsRepository.findSessionByUserIdentifierAndDateIsToday(userIdentifier);
+                sessionsRepository.findSessionByUserIdentifierAnsweredToday(userIdentifier);
         var questionId =
                 maybeSession.map(Session::getQuestionId).orElseThrow(RuntimeException::new);
         var maybeQuestion = questionsRepository.findById(questionId);

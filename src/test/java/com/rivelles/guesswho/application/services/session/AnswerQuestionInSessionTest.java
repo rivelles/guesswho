@@ -56,7 +56,7 @@ class AnswerQuestionInSessionTest {
         var session = new Session(userIdentifier, questionId);
         var question = new Question(MICHAEL_JACKSON_TIPS, MICHAEL_JACKSON_ANSWER);
 
-        when(sessionsRepository.findSessionByUserIdentifierAndDateIsToday(userIdentifier))
+        when(sessionsRepository.findSessionByUserIdentifierAnsweredToday(userIdentifier))
                 .thenReturn(Optional.of(session));
         when(questionsRepository.findById(questionId)).thenReturn(Optional.of(question));
 
@@ -75,7 +75,7 @@ class AnswerQuestionInSessionTest {
         var session = new Session(userIdentifier, questionId);
         var question = new Question(MICHAEL_JACKSON_TIPS, MICHAEL_JACKSON_ANSWER);
 
-        when(sessionsRepository.findSessionByUserIdentifierAndDateIsToday(userIdentifier))
+        when(sessionsRepository.findSessionByUserIdentifierAnsweredToday(userIdentifier))
                 .thenReturn(Optional.of(session));
         when(questionsRepository.findById(questionId)).thenReturn(Optional.of(question));
 
@@ -91,7 +91,7 @@ class AnswerQuestionInSessionTest {
     void whenNoSessionIsFound_shouldThrowException() {
         var userIdentifier = new UserIdentifier("127.0.0.1");
 
-        when(sessionsRepository.findSessionByUserIdentifierAndDateIsToday(userIdentifier))
+        when(sessionsRepository.findSessionByUserIdentifierAnsweredToday(userIdentifier))
                 .thenReturn(Optional.empty());
 
         assertThatExceptionOfType(RuntimeException.class)

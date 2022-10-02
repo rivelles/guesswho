@@ -6,6 +6,7 @@ import com.rivelles.guesswho.adapters.http.requests.CreateSessionForUserRequest;
 import com.rivelles.guesswho.adapters.http.responses.AnswerQuestionInSessionResponse;
 import com.rivelles.guesswho.application.services.session.AnswerQuestionInSession;
 import com.rivelles.guesswho.application.services.session.CreateSessionForUser;
+import com.rivelles.guesswho.domain.model.session.UserIdentifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,14 +31,22 @@ public class SessionsController {
     @PostMapping("")
     public ResponseEntity createSessionForUser(
             CreateSessionForUserRequest createSessionForUserRequest) {
+        var userIdentifier = new UserIdentifier(createSessionForUserRequest.userIp());
+
+        createSessionForUser.create(userIdentifier);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("/{userIdentifier}:answerQuestionInSession")
+    @PostMapping("/{userIp}:answerQuestionInSession")
     public ResponseEntity<AnswerQuestionInSessionResponse> answerQuestionInSession(
             AnswerQuestionInSessionRequest answerQuestionInSessionRequest,
-            @PathVariable String userIdentifier) {
+            @PathVariable String userIp) {
+
+        var userIdentifier = new UserIdentifier(userIp);
+
+        answerQuestionInSession.answer(
+                userIdentifier, answerQuestionInSessionRequest.providedAnswer());
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
